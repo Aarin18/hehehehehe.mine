@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Our Love Story ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: #020617;
+      --accent: #ec4899;
+      --accent-soft: rgba(236, 72, 153, 0.12);
+      --accent-strong: #db2777;
+      --text: #f9fafb;
+      --text-soft: #e5e7eb;
+      --border-soft: rgba(148, 163, 184, 0.4);
+      --glow: 0 0 30px rgba(236, 72, 153, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(236,72,153,0.25), transparent 55%),
+        radial-gradient(circle at bottom, rgba(59,130,246,0.25), transparent 55%),
+        linear-gradient(135deg, #020617, #020617);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .glow-orbit {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(236,72,153,0.18), transparent 60%),
+        radial-gradient(circle at 80% 10%, rgba(59,130,246,0.18), transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(34,197,94,0.18), transparent 55%);
+      z-index: -1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* TIMELINE SECTION */
+    .timeline-section {
+      margin-bottom: 32px;
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .timeline-section:nth-child(1) { animation-delay: 0.1s; }
+    .timeline-section:nth-child(2) { animation-delay: 0.3s; }
+    .timeline-section:nth-child(3) { animation-delay: 0.5s; }
+    .timeline-section:nth-child(4) { animation-delay: 0.7s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .timeline-marker {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #f97316, #fb7185);
+      border: 3px solid #0f172a;
+      box-shadow: 0 0 24px rgba(249,115,22,0.8), inset 0 0 8px rgba(255,255,255,0.4);
+      flex-shrink: 0;
+      position: relative;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .timeline-dot.active {
+      animation: pulse 1.2s ease-in-out infinite, glow 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { 
+        box-shadow: 0 0 24px rgba(249,115,22,0.8), inset 0 0 8px rgba(255,255,255,0.4);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 0 36px rgba(249,115,22,1), inset 0 0 12px rgba(255,255,255,0.6);
+        transform: scale(1.08);
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(1.2);
+      }
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 11px;
+      top: 32px;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(180deg, rgba(249,115,22,0.8), rgba(249,115,22,0.2));
+      z-index: -1;
+    }
+
+    .timeline-section:last-child .timeline-line {
+      display: none;
+    }
+
+    .timeline-label {
+      flex-grow: 1;
+    }
+
+    .timeline-year {
+      font-size: 14px;
+      font-weight: 600;
+      color: #f97316;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .timeline-stage {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(249,115,22,0.15);
+      border: 1px solid rgba(249,115,22,0.4);
+      color: #f97316;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* MAIN CARD */
+    .card {
+      width: 100%;
+      background: radial-gradient(circle at top left, rgba(236,72,153,0.14), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(59,130,246,0.14), transparent 55%),
+                  rgba(15,23,42,0.96);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow:
+        0 24px 60px rgba(15,23,42,0.85),
+        0 0 0 1px rgba(15,23,42,0.9);
+      padding: 32px 34px;
+      position: relative;
+      overflow: hidden;
+      animation: slideInCard 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes slideInCard {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(236,72,153,0.9),
+        rgba(59,130,246,0.8),
+        rgba(236,72,153,0.9)
+      );
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      opacity: 0.35;
+      pointer-events: none;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        opacity: 0.35;
+      }
+      50% {
+        opacity: 0.55;
+      }
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 28px;
+    }
+
+    @media (max-width: 767px) {
+      .card-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--text-soft);
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      animation: fadeInDown 0.7s ease forwards;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #f9a8d4, #db2777);
+      box-shadow: 0 0 14px rgba(236,72,153,0.7);
+      animation: throb 1.8s ease-in-out infinite;
+    }
+
+    @keyframes throb {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .title {
+      margin-top: 16px;
+      font-size: clamp(26px, 3vw, 32px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      animation: fadeInDown 0.8s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .title span.highlight {
+      background: linear-gradient(120deg, #f472b6, #fb7185, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 22px rgba(248,113,113,0.6);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% {
+        filter: brightness(1) drop-shadow(0 0 8px rgba(248,113,113,0.4));
+      }
+      50% {
+        filter: brightness(1.1) drop-shadow(0 0 16px rgba(248,113,113,0.7));
+      }
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 32rem;
+      animation: fadeInDown 0.8s ease 0.3s forwards;
+      opacity: 0;
+      line-height: 1.6;
+    }
+
+    .subtitle strong {
+      color: #fee2e2;
+      font-weight: 600;
+    }
+
+    .journey-box {
+      margin-top: 20px;
+      padding: 14px 14px 12px;
+      border-radius: 16px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.3);
+      animation: fadeInDown 0.8s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    .journey-title {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(248,250,252,0.68);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .journey-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-soft);
+    }
+
+    .journey-text span.em {
+      color: #fecaca;
+      font-weight: 500;
+    }
+
+    .actions {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      animation: fadeInUp 0.8s ease 0.5s forwards;
+      opacity: 0;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 9px 18px;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      background: radial-gradient(circle at 10% 0, #f9a8d4, #ec4899);
+      color: #0f172a;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow:
+        0 10px 30px rgba(236,72,153,0.65),
+        0 0 0 1px rgba(248,113,181,0.8);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.3), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow:
+        0 16px 40px rgba(236,72,153,0.8),
+        0 0 0 1px rgba(248,113,181,0.9);
+    }
+
+    .btn:active {
+      transform: translateY(-1px) scale(0.98);
+      box-shadow:
+        0 4px 16px rgba(236,72,153,0.7),
+        0 0 0 1px rgba(248,113,181,0.9);
+    }
+
+    .btn-secondary {
+      background: rgba(15,23,42,0.9);
+      color: var(--text-soft);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid rgba(148,163,184,0.6);
+      text-transform: none;
+      letter-spacing: 0.02em;
+      box-shadow: 0 8px 26px rgba(15,23,42,0.85);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-secondary span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e);
+      box-shadow: 0 0 10px rgba(74,222,128,0.9);
+      animation: throb 1.6s ease-in-out infinite;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15,23,42,0.9);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.9);
+      border-color: rgba(248,250,252,0.9);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 18px rgba(15,23,42,0.9);
+    }
+
+    /* RIGHT PANE */
+    .right-pane {
+      position: relative;
+      border-radius: 20px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: radial-gradient(circle at 0 0, rgba(236,72,153,0.2), transparent 50%),
+                  radial-gradient(circle at 100% 100%, rgba(59,130,246,0.18), transparent 55%),
+                  rgba(2,6,23,0.96);
+      padding: 16px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow:
+        0 20px 48px rgba(15,23,42,0.96),
+        0 0 0 1px rgba(15,23,42,0.9);
+      animation: slideInCard 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .right-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .right-header span.badge {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.55);
+    }
+
+    .right-header span.label {
+      opacity: 0.86;
+    }
+
+    .distance-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 11px;
+      color: var(--text-soft);
+      align-self: flex-start;
+      animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .distance-tag svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.9;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .quote-box {
+      margin-top: 6px;
+      padding: 12px 12px 10px;
+      border-radius: 16px;
+      background: rgba(15,23,42,0.94);
+      border: 1px solid rgba(148,163,184,0.45);
+      font-size: 13px;
+      color: var(--text-soft);
+      min-height: 72px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.7s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    .quote-box::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background:
+        radial-gradient(circle at 0 0, rgba(236,72,153,0.13), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(59,130,246,0.12), transparent 55%);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .quote-box-inner {
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .quote-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(248,250,252,0.7);
+      margin-bottom: 6px;
+    }
+
+    .quote-text {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .quote-text span.em {
+      color: #fecaca;
+      font-weight: 500;
+    }
+
+    .quote-meta {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: rgba(148,163,184,0.9);
+    }
+
+    .quote-dots {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .quote-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148,163,184,0.7);
+      transition: all 0.3s ease;
+    }
+
+    .quote-dot.active {
+      background: radial-gradient(circle at 30% 30%, #f97316, #fb7185);
+      box-shadow: 0 0 14px rgba(249,115,22,0.9);
+      transform: scale(1.3);
+    }
+
+    .long-distance {
+      margin-top: 6px;
+      padding: 10px 11px;
+      border-radius: 14px;
+      background: rgba(15,23,42,0.9);
+      border: 1px dashed rgba(148,163,184,0.55);
+      font-size: 11px;
+      color: rgba(209,213,219,0.95);
+      line-height: 1.5;
+      animation: fadeInUp 0.7s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    .long-distance strong {
+      color: #fee2e2;
+      font-weight: 600;
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(148,163,184,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.7s ease 0.5s forwards;
+      opacity: 0;
+    }
+
+    .footer-note span strong {
+      color: #f87171;
+      font-weight: 600;
+    }
+
+    .little-heart {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(248,113,181,0.8);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 30%, #fda4af, #be123c);
+      box-shadow: 0 0 14px rgba(248,113,181,0.9);
+      animation: heartbeat 1.3s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 14px rgba(248,113,181,0.9);
+      }
+      25% {
+        transform: scale(1.12);
+        box-shadow: 0 0 22px rgba(248,113,181,1);
+      }
+      50% {
+        transform: scale(1);
+      }
+    }
+
+    .little-heart svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px 16px;
+      }
+      .subtitle {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-orbit"></div>
+
+  <div class="container">
+    <!-- TIMELINE SECTION -->
+    <div style="margin-bottom: 32px;">
+      <div class="timeline-section">
+        <div class="timeline-marker">
+          <div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-label">
+            <div class="timeline-stage">Stage 1: The Beginning</div>
+            <div class="timeline-year">Class 7</div>
+            <div class="timeline-title">When I First Saw You</div>
+            <div class="timeline-desc">
+              I saw you in class 7 and thought "wow, she's beautiful." But I was just a kid – I thought it was just attraction, just a random crush that comes and goes.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-section">
+        <div class="timeline-marker">
+          <div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-label">
+            <div class="timeline-stage">Stage 2: Growing Up</div>
+            <div class="timeline-year">Class 8-10</div>
+            <div class="timeline-title">When Attraction Became Something Real</div>
+            <div class="timeline-desc">
+              Years passed. We talked more, we laughed together, and slowly I realized something was changing in my heart. It wasn't just a crush anymore – it was becoming love.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-section">
+        <div class="timeline-marker">
+          <div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-label">
+            <div class="timeline-stage">Stage 3: Knowing</div>
+            <div class="timeline-year">Class 11-12</div>
+            <div class="timeline-title">When I Realized It Was Forever</div>
+            <div class="timeline-desc">
+              I stopped asking questions. I stopped trying to understand what I felt. I just knew – deep in my bones – that you were different, that you were "the one" for me.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-section">
+        <div class="timeline-marker">
+          <div>
+            <div class="timeline-dot active"></div>
+          </div>
+          <div class="timeline-label">
+            <div class="timeline-stage">Stage 4: Now</div>
+            <div class="timeline-year">Today</div>
+            <div class="timeline-title">When You Said Yes ✨</div>
+            <div class="timeline-desc">
+              And today, you said yes. After all these years, after every fight, every tear, every moment of doubt – here we are. My heart is home.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CARD -->
+    <div class="card">
+      <div class="card-inner">
+        <!-- LEFT SIDE -->
+        <div>
+          <div class="tag">
+            <span class="tag-dot"></span>
+            <span>From Class 7 Till Forever</span>
+          </div>
+
+          <h1 class="title">
+            Mallika, it was attraction,
+            <span class="highlight">then it became love</span>
+          </h1>
+
+          <p class="subtitle">
+            I met you (my Mallu, my Bachha, my Babe) in class 7 thinking it was just a crush. I didn't know that innocent attraction would grow into something so deep, so real, so <strong>absolutely unforgettable.</strong>
+          </p>
+
+          <div class="journey-box">
+            <div class="journey-title">The Real Story</div>
+            <div class="journey-text">
+              Class 7 me didn't understand. He saw a pretty girl and thought "nice, that's cool." But the universe had other plans. With every year, every conversation, every laugh we shared – my heart learned the difference between attraction and <span class="em">love.</span> And I'm so grateful it did.
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="btnNext">
+              Read a love line
+              <span>➜</span>
+            </button>
+            <button class="btn-secondary" id="btnPromise">
+              <span class="dot"></span>
+              My promise
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="right-pane">
+          <div class="right-header">
+            <span class="badge">Our Love Log</span>
+            <span class="label" id="loveCounter">Line 1 of many</span>
+          </div>
+
+          <div class="distance-tag">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M5 3h4l2 4h4l2 4h2" stroke="#e5e7eb" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M3 20h18" stroke="#e5e7eb" stroke-width="1.4"
+                    stroke-linecap="round" />
+              <circle cx="7" cy="20" r="1.2" fill="#f97316" />
+              <circle cx="17" cy="20" r="1.2" fill="#f97316" />
+            </svg>
+            <span>Miles apart, hearts together.</span>
+          </div>
+
+          <div class="quote-box">
+            <div class="quote-box-inner">
+              <div class="quote-label">For you, from me</div>
+              <div class="quote-text" id="quoteText">
+                I met you in class 7 as just a crush. But years passed, and slowly you became my favorite person, my safest place, my forever choice. It wasn't love at first sight – it was <span class="em">love at first knowing.</span>
+              </div>
+              <div class="quote-meta">
+                <span id="quoteMood">Mood: grateful & in love</span>
+                <div class="quote-dots">
+                  <span class="quote-dot active"></span>
+                  <span class="quote-dot"></span>
+                  <span class="quote-dot"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="long-distance" id="promiseText">
+            <strong>Promise:</strong> My love for you didn't happen overnight – it grew every single day, year after year. And it will keep growing, no matter how far apart we are. I'm not going anywhere.
+          </div>
+
+          <div class="footer-note">
+            <span>We fight, we grow, we understand each other better –
+              <strong>that's how real love works.</strong></span>
+            <span class="little-heart">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12.1 21.35c-.2-.18-4.88-4.25-6.77-6.14C3.02 12.9 2 11.36 2 9.5 2 7.02 3.99 5 6.4 5c1.44 0 2.8.73 3.6 1.88C10.8 5.73 12.16 5 13.6 5 16 5 18 7.02 18 9.5c0 1.86-1.02 3.4-3.33 5.71-1.89 1.89-6.57 5.96-6.77 6.14z"
+                  fill="#fee2e2" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const lines = [
+      {
+        text: "Class 7 me thought you were pretty. But class 12 me realized you are my <span class='em'>home.</span> There's a huge difference, and I finally understand it.",
+        mood: "Mood: understanding the difference"
+      },
+      {
+        text: "Attraction fades, but love? Love grows roots. Over all these years, you didn't just stay beautiful – you became my favorite person, my safe place, my <span class='em'>reason.</span>",
+        mood: "Mood: deepest gratitude"
+      },
+      {
+        text: "I spent years just watching you from afar, thinking I was hiding. But you knew, didn't you? And you still chose to stay, to let this love grow. Thank you for that.",
+        mood: "Mood: vulnerable & honest"
+      },
+      {
+        text: "We fought so many times, said things we didn't mean, hurt each other. But every single time, my heart still came back to you. If that's not love, I don't know what is.",
+        mood: "Mood: resilient & certain"
+      },
+      {
+        text: "Long distance is hard, but you know what's harder? Pretending I don't love you this much. This distance is nothing compared to how much my heart wants to be next to yours.",
+        mood: "Mood: longing & devoted"
+      },
+      {
+        text: "From 'wow she's beautiful' to 'she's my forever' – that's the journey my heart took. And I'm so grateful it chose <span class='em'>you.</span>",
+        mood: "Mood: complete & at peace"
+      },
+      {
+        text: "Every memory with you – from random class conversations to late-night talks to our fights – they're all love notes my heart wrote to you without even knowing it.",
+        mood: "Mood: nostalgic & tender"
+      },
+      {
+        text: "You asked me when I started loving you. Honestly? I think I started the moment I decided to keep loving you even when it was hard. That's when attraction became <span class='em'>forever.</span>",
+        mood: "Mood: deeply understood"
+      }
+    ];
+
+    const promises = [
+      "I promise that my love for you isn't based on how close we are – it's based on how real you are to me. Distance is just a number; my heart beats for you regardless.",
+      "I promise to remember that this didn't start with attraction – it grew into love. And I'll keep choosing you, not because you're beautiful, but because you're <strong>mine.</strong>",
+      "I promise that every fight, every argument, every tear – it only proved how much you matter. I wouldn't fight so hard for something I didn't love so much.",
+      "I promise to close this distance someday and hold you like I've been wanting to for all these years. Patience is love too.",
+      "I promise to love you on the days you doubt it, on the days I mess up, on the days we fight. That's what real love does – it stays."
+    ];
+
+    const quoteText = document.getElementById("quoteText");
+    const quoteMood = document.getElementById("quoteMood");
+    const loveCounter = document.getElementById("loveCounter");
+    const promiseText = document.getElementById("promiseText");
+    const btnNext = document.getElementById("btnNext");
+    const btnPromise = document.getElementById("btnPromise");
+    const quoteDots = document.querySelectorAll(".quote-dot");
+
+    let currentIndex = 0;
+    let promiseIndex = 0;
+
+    function updateDots(index) {
+      quoteDots.forEach((dot, i) => {
+        if (i === index % quoteDots.length) {
+          dot.classList.add("active");
+        } else {
+          dot.classList.remove("active");
+        }
+      });
+    }
+
+    function showLine(index) {
+      const item = lines[index];
+      quoteText.innerHTML = item.text;
+      quoteMood.textContent = item.mood;
+      loveCounter.textContent = `Line ${index + 1} of ${lines.length}`;
+      updateDots(index);
+      
+      // Trigger animation
+      quoteText.style.animation = "none";
+      setTimeout(() => {
+        quoteText.style.animation = "fadeIn 0.5s ease";
+      }, 10);
+    }
+
+    btnNext.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % lines.length;
+      showLine(currentIndex);
+    });
+
+    btnPromise.addEventListener("click", () => {
+      promiseIndex = (promiseIndex + 1) % promises.length;
+      const promise = promises[promiseIndex];
+      promiseText.innerHTML = "<strong>Promise:</strong> " + promise;
+      promiseText.style.animation = "fadeInUp 0.6s ease";
+    });
+
+    // Initial state
+    showLine(currentIndex);
+  </script>
+</body>
+</html>
